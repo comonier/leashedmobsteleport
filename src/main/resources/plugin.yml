@@ -1,11 +1,11 @@
 name: leashedmobsteleport
-version: 1.0
+version: '1.0'
 main: com.comonier.leashedmobsteleport.LeashedMobsTeleport
 api-version: '1.21'
 author: comonier
-description: Teletransporta mobs na corda entre dimensões e permite laçar qualquer mob.
+description: Teleport leashed mobs across dimensions and allow leashing any mob.
 
 permissions:
   leashedmobsteleport.use:
-    description: Permite laçar mobs e teletransportá-los.
+    description: Allows players to leash mobs and teleport them.
     default: true

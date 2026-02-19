@@ -1,0 +1,22 @@
+# LeashedMobsTeleport Messages
+# Use & for colors. Available placeholders: %entity%, %from%, %to%
+
+en:
+  leash_success: "&aYou leashed %entity%. AIs disabled while leashed."
+  fence_leash: "&aYou tied %entity% to a fence. AIs remain disabled."
+  fence_unleash: "&eYou untied %entity% from the fence and took the lead. AIs remain disabled."
+  unleash_success: "&eYou released %entity%. Lead returned to inventory. AIs re-enabled."
+  teleport_success: "&bTeleported with your mobs from %from% to %to%!"
+  teleport_fail: "&cFailed to teleport %entity%!"
+  no_permission: "&cYou do not have permission!"
+  no_bosses: "&cYou cannot leash bosses!"
+
+pt:
+  leash_success: "&aVocê laçou %entity%. I.A.s desligadas enquanto o mob estiver laçado."
+  fence_leash: "&aVocê prendeu %entity% a uma cerca. A entidade permanecerá com a I.A. desligada."
+  fence_unleash: "&eVocê retirou %entity% da cerca e a corda voltou para sua mão. I.A.s continuam desligadas."
+  unleash_success: "&eVocê liberou %entity%. A corda voltou para seu inventário e as I.A.s foram ligadas."
+  teleport_success: "&bTeletransportado com seus mobs de %from% para %to%!"
+  teleport_fail: "&cFalha ao teletransportar %entity%!"
+  no_permission: "&cVocê não tem permissão!"
+  no_bosses: "&cVocê não pode laçar chefões!"
