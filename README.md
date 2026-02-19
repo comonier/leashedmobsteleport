@@ -1,4 +1,4 @@
-# 🪢 LeashedMobsTeleport (1.21.1+)
+# 🪢 LeashedMobsTeleport (1.21.11)
 
 A robust, interdimensional Minecraft plugin that allows you to leash any living entity and teleport them with the player anywhere, ensuring full stability and AI control.
 
