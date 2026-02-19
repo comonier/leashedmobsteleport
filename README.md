@@ -1,4 +1,5 @@
-# 🪢 LeashedMobsTeleport (1.21.11)
+# ⚓ LeashedMobsTeleport (1.21.1+)
+(tested on 1.21.11 paper)
 
 A robust, interdimensional Minecraft plugin that allows you to leash any living entity and teleport them with the player anywhere, ensuring full stability and AI control.
 
@@ -29,9 +30,9 @@ The plugin is **unlocked for all players by default** (Plug & Play).
 *   **Bosses:** The **Wither** and the **Ender Dragon** remain immune to leashing for balance reasons.
 
 ## 🛠️ Installation
-1. Ensure you are using **Java 21**.
-2. Compile with `mvn clean package`.
-3. Drag the `.jar` from the `target` folder to your server's `/plugins` folder.
+1. Move the `.jar` file to your server's `/plugins` folder.
+2. Start or restart your server.
+3. Enjoy!
 
 ---
 Developed by **comonier** for version 1.21.11.
