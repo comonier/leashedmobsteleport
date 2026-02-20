@@ -43,6 +43,7 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         getServer().getPluginManager().registerEvents(this, this);
         if (getCommand("lmt") != null) getCommand("lmt").setExecutor(this);
 
+        // MONITORAMENTO DE RESGATE (O "Achado de Ouro")
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 for (Entity e : player.getNearbyEntities(25, 25, 25)) {
@@ -67,7 +68,7 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         Bukkit.getConsoleSender().sendMessage("§b ");
         Bukkit.getConsoleSender().sendMessage("§b##########################################");
         Bukkit.getConsoleSender().sendMessage("§b#     LEASHED MOBS TELEPORT - ACTIVE     #");
-        Bukkit.getConsoleSender().sendMessage("§b#             VERSION: 1.6               #");
+        Bukkit.getConsoleSender().sendMessage("§b#             VERSION: 1.5               #");
         Bukkit.getConsoleSender().sendMessage("§b##########################################");
         Bukkit.getConsoleSender().sendMessage("§b ");
     }
@@ -136,7 +137,24 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
 
         if (item != null && item.getType() == Material.LEAD) {
             event.setCancelled(true);
+            
+            // PERMISSÃO GERAL DE USO
+            if (!player.hasPermission("leashedmobsteleport.use")) {
+                player.sendMessage(getMsg("no_permission"));
+                return;
+            }
+
+            // NOVA LÓGICA v1.5: PERMISSÃO POR ENTIDADE
+            if (getConfig().getBoolean("use-permission-per-mob", false)) {
+                String entityName = mob.getType().name().toLowerCase();
+                if (!player.hasPermission("lmt.leash." + entityName)) {
+                    player.sendMessage(getMsg("no_permission"));
+                    return;
+                }
+            }
+
             if (mob.getType() == EntityType.WITHER || mob.getType() == EntityType.ENDER_DRAGON) return;
+            
             if (mob.setLeashHolder(player)) {
                 pacify(mob);
                 mob.setMetadata(OWNER_KEY, new FixedMetadataValue(this, player.getUniqueId().toString()));
@@ -160,7 +178,7 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
 
         if (targets.isEmpty() && vehicle == null) return;
 
-        // ANTI-DUPE: Varredura de limpeza no local de origem
+        // ANTI-DUPE (Versão v1.4 Estável)
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if (from.getWorld() != null) {
                 for (Entity e : from.getWorld().getNearbyEntities(from, 8, 8, 8)) {
@@ -218,7 +236,6 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         if (!(event.getEntity() instanceof LivingEntity mob)) return;
         
         if (mob.hasMetadata(PROTECT_KEY)) {
-            // Correção técnica: usamos a enumeração completa para evitar erro de símbolo
             if (event.getReason() != EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
                 event.setDropLeash(false);
                 Bukkit.getScheduler().runTaskLater(this, () -> {

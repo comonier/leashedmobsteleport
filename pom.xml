@@ -6,7 +6,7 @@
 
     <groupId>com.comonier</groupId>
     <artifactId>leashedmobsteleport</artifactId>
-    <version>1.3</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
 
     <name>LeashedMobsTeleport</name>
