@@ -12,8 +12,6 @@ __________________________________________________
 ### 🌐 Test now on IP: **hu3.org**
 *Survival server with GriefPrevention and custom plugins.*
 
-know bugs: duping lead on cross world teleportation / will be fixed on 1.5
-
 [Discord](https://discord.gg/yyKQTFGVfR)
 __________________________________________________
 
