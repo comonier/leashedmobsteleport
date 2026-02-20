@@ -43,7 +43,6 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         getServer().getPluginManager().registerEvents(this, this);
         if (getCommand("lmt") != null) getCommand("lmt").setExecutor(this);
 
-        // MONITORAMENTO DE RESGATE (O "Achado de Ouro")
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 for (Entity e : player.getNearbyEntities(25, 25, 25)) {
@@ -68,7 +67,7 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         Bukkit.getConsoleSender().sendMessage("§b ");
         Bukkit.getConsoleSender().sendMessage("§b##########################################");
         Bukkit.getConsoleSender().sendMessage("§b#     LEASHED MOBS TELEPORT - ACTIVE     #");
-        Bukkit.getConsoleSender().sendMessage("§b#             VERSION: 1.3               #");
+        Bukkit.getConsoleSender().sendMessage("§b#             VERSION: 1.6               #");
         Bukkit.getConsoleSender().sendMessage("§b##########################################");
         Bukkit.getConsoleSender().sendMessage("§b ");
     }
@@ -89,8 +88,8 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
     }
 
     private String getEntityColorName(Entity e) {
-        if (e instanceof Monster) return "§c" + e.getName() + "§7"; // Vermelho claro e volta pro cinza
-        return "§a" + e.getName() + "§7"; // Verde claro e volta pro cinza
+        if (e instanceof Monster) return "§c" + e.getName() + "§7";
+        return "§a" + e.getName() + "§7";
     }
 
     private String formatWorldName(String name) {
@@ -137,10 +136,6 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
 
         if (item != null && item.getType() == Material.LEAD) {
             event.setCancelled(true);
-            if (!player.hasPermission("leashedmobsteleport.use")) {
-                player.sendMessage(getMsg("no_permission"));
-                return;
-            }
             if (mob.getType() == EntityType.WITHER || mob.getType() == EntityType.ENDER_DRAGON) return;
             if (mob.setLeashHolder(player)) {
                 pacify(mob);
@@ -154,6 +149,7 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
+        Location from = event.getFrom();
         Location to = event.getTo();
         Entity vehicle = player.getVehicle();
         
@@ -163,6 +159,17 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         }
 
         if (targets.isEmpty() && vehicle == null) return;
+
+        // ANTI-DUPE: Varredura de limpeza no local de origem
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            if (from.getWorld() != null) {
+                for (Entity e : from.getWorld().getNearbyEntities(from, 8, 8, 8)) {
+                    if (e instanceof Item item && item.getItemStack().getType() == Material.LEAD) {
+                        if (item.getTicksLived() < 20) e.remove();
+                    }
+                }
+            }
+        }, 2L);
 
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if (!player.isOnline() || to == null) return;
@@ -187,18 +194,12 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
             }
 
             if (disabledMessages.contains(player.getUniqueId())) return;
-
-            String ridingStr = "";
-            if (vehicle != null) {
-                ridingStr = getMsg("riding_suffix").replace("%mount%", "§f" + vehicle.getName() + "§7");
-            }
-
+            String ridingStr = vehicle != null ? getMsg("riding_suffix").replace("%mount%", "§f" + vehicle.getName() + "§7") : "";
             player.sendMessage(getMsg("teleport_msg")
                     .replace("%from%", formatWorldName(event.getFrom().getWorld().getName()))
                     .replace("%to%", formatWorldName(to.getWorld().getName()))
                     .replace("%count%", String.valueOf(targets.size()))
                     .replace("%riding%", ridingStr));
-
         }, 1L);
     }
 
@@ -215,10 +216,20 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLeashBreak(EntityUnleashEvent event) {
         if (!(event.getEntity() instanceof LivingEntity mob)) return;
-        if (mob.hasMetadata(PROTECT_KEY) && (event.getReason() == EntityUnleashEvent.UnleashReason.UNKNOWN || event.getReason() == EntityUnleashEvent.UnleashReason.DISTANCE)) {
-            event.setDropLeash(false);
-            return;
+        
+        if (mob.hasMetadata(PROTECT_KEY)) {
+            // Correção técnica: usamos a enumeração completa para evitar erro de símbolo
+            if (event.getReason() != EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
+                event.setDropLeash(false);
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    for (Entity e : mob.getNearbyEntities(3, 3, 3)) {
+                        if (e instanceof Item item && item.getItemStack().getType() == Material.LEAD) e.remove();
+                    }
+                }, 1L);
+                return;
+            }
         }
+
         if (event.getReason() == EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
             event.setDropLeash(false);
             unpacify(mob);
