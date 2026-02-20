@@ -13,7 +13,8 @@ __________________________________________________
 
 __________________________________________________
 
-<img width="450" alt="image" src="https://github.com" />
+<img width="503" height="602" alt="image" src="https://github.com/user-attachments/assets/b2eb5312-8146-4c14-b22f-72a06b41b988" />
+
 
 ## 🚀 Key Features
 
@@ -45,6 +46,9 @@ Bilingual Support: Built-in support for **English (EN)** and **Portuguese (PT-BR
 ---
 
 ## 🛠️ Installation
+
+⚠️ **IMPORTANT:** ⚠️
+If updating, **delete the plugin folder** (`/plugins/LeashedMobsTeleport`) to prevent file conflicts.
 
 1. Ensure your server is running **Java 21**.
 2. Download the latest **v1.3 Release**.
