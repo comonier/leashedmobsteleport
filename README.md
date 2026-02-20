@@ -31,7 +31,7 @@ Never lose a mob again. Our unique **Passenger-Ride** mechanic forces entities t
 ## 🛠️ Installation
 
 1.  Ensure your server is running **Java 21**.
-2.  Download the latest [Release]([https://github.com](https://github.com/comonier/leashedmobsteleport/releases/download/1.1/leashedmobsteleport-1.1.jar)).
+2.  Download the latest [Release](https://github.com/comonier/leashedmobsteleport/releases/download/1.1/leashedmobsteleport-1.1.jar)
 3.  Drop the `.jar` file into your `/plugins` folder.
 4.  Restart your server.
 5.  Configure your language in `config.yml`.
