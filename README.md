@@ -50,6 +50,7 @@ Bilingual Support: Built-in support for **English (EN)** and **Portuguese (PT-BR
 ## 🛠️ Installation
 
 ⚠️ **IMPORTANT:** ⚠️
+
 If updating, **delete the plugin folder** (`/plugins/LeashedMobsTeleport`) to prevent file conflicts.
 
 1. Ensure your server is running **Java 21**.
