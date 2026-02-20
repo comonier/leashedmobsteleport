@@ -4,7 +4,11 @@ Minecraft 1.21.11 | Java 21 | Paper 1.21.11
 
 **LeashedMobsTeleport** is a high-performance, professional-grade utility for Minecraft servers. It revolutionizes how players transport entities, ensuring **zero-loss** interdimensional travel and a "pacified" experience for even the most dangerous mobs.
 
----
+__________________________________________________
+connect on ip: hu3.org server to test
+its a survival server with griefprevention.a
+and all my plugins.
+__________________________________________________
 
 ## 🚀 Key Features
 
