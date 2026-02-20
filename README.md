@@ -10,7 +10,7 @@ Minecraft 1.21.11 | Java 21 | Paper 1.21.11
 
 ### 🌌 The "Soul Ride" Teleportation
 Never lose a mob again. Our unique **Passenger-Ride** mechanic forces entities to "hitch a ride" with the player during teleports. 
-*   **Works with:** `/spawn`, `/home`, `/tp`, and Nether/End portals.
+*   **Works with:** `/spawn`, `/home`, `/tp`.
 *   **Zero-Loss:** Mobs won't despawn or be left behind, even on high-latency servers.
 *   **Mount Persistence:** Stay mounted on your Horse, Camel, or Donkey after teleporting!
 
