@@ -1,6 +1,7 @@
 <div align="center">
 
-# 🐾 LeashedMobsTeleport [v1.3]
+# 🐾 LeashedMobsTeleport [v1.4]
+DUPE LEAD ON CROSS WORLD TP FIXED
 
 **Minecraft 1.21.1 | Java 21 | Paper 1.21.1**
 
