@@ -12,6 +12,7 @@ __________________________________________________
 *Survival server with GriefPrevention and custom plugins.*
 
 know bugs: duping lead on cross world teleportation / will be fixed on 1.5
+[Discord](https://discord.gg/yyKQTFGVfR)
 __________________________________________________
 
 <img width="503" height="602" alt="image" src="https://github.com/user-attachments/assets/b2eb5312-8146-4c14-b22f-72a06b41b988" />
