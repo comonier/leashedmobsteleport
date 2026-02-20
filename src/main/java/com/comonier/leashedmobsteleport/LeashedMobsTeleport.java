@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +34,43 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener {
         saveDefaultConfig();
         createMessagesConfig();
         getServer().getPluginManager().registerEvents(this, this);
-        Bukkit.getConsoleSender().sendMessage("§a**** " + getName() + " v1.9 - ATIVADO ****");
+
+        // MONITORAMENTO ULTRA-ATIVO (2 Ticks = 10 vezes por segundo)
+        // Resolve o problema do "peso" e dos blocos no caminho.
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                for (Entity e : player.getNearbyEntities(20, 20, 20)) {
+                    if (e instanceof LivingEntity mob && mob.isLeashed() && player.equals(mob.getLeashHolder())) {
+                        
+                        double distSq = mob.getLocation().distanceSquared(player.getLocation());
+                        
+                        // SEÇÃO DE RESGATE:
+                        // 1. Se a distância > 4.5 blocos (física crítica)
+                        // 2. OU se houver blocos entre o player e o mob (ele está preso/no buraco)
+                        if (distSq > 20.0 || !hasLineOfSight(player, mob)) {
+                            mob.teleport(player.getLocation());
+                            pacify(mob);
+                        }
+                    }
+                }
+            }
+        }, 2L, 2L);
+
+        Bukkit.getConsoleSender().sendMessage("§a**** " + getName() + " v1.17 - GHOST LEASH ACTIVATED ****");
+    }
+
+    // Função que checa se o mob está "escondido" atrás de um bloco ou em um buraco
+    private boolean hasLineOfSight(Player p, Entity m) {
+        // Se o player estiver voando alto, ignoramos a colisão para ele subir o mob
+        if (p.getLocation().getY() - m.getLocation().getY() > 3) return true;
+        
+        Vector direction = m.getLocation().toVector().subtract(p.getLocation().toVector());
+        try {
+            // Raytrace simples para ver se há blocos no caminho
+            return p.getWorld().rayTraceBlocks(p.getEyeLocation(), direction, direction.length()) == null;
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     private void createMessagesConfig() {
@@ -112,63 +149,59 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener {
         if (event.getEntity().hasMetadata(PROTECT_KEY)) event.setCancelled(true);
     }
 
-    /* 
-     * TELEPORTE v1.9: TÉCNICA DE PASSAGEIRO INSTANTÂNEO
-     */
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         List<LivingEntity> targets = new ArrayList<>();
-        
         for (Entity e : player.getNearbyEntities(32, 32, 32)) {
             if (e instanceof LivingEntity mob && mob.isLeashed() && player.equals(mob.getLeashHolder())) {
                 targets.add(mob);
-                // Força o teleporte junto com o player anexando como passageiro temporário
                 player.addPassenger(mob); 
             }
         }
 
         if (targets.isEmpty() && !player.isInsideVehicle()) return;
-
         Entity vehicle = player.getVehicle();
 
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if (!player.isOnline()) return;
-
-            // Resolve a montaria principal
             if (vehicle instanceof LivingEntity v) {
                 v.teleport(event.getTo());
                 Bukkit.getScheduler().runTaskLater(this, () -> {
                     if (player.isOnline() && v.isValid()) v.addPassenger(player);
                 }, 5L);
             }
-
-            // Resolve os mobs laçados que foram como passageiros
             for (LivingEntity mob : targets) {
                 if (mob.isValid()) {
-                    player.removePassenger(mob); // Desembarca no destino
-                    mob.teleport(event.getTo()); // Garante posição exata
-                    
+                    player.removePassenger(mob);
+                    mob.teleport(event.getTo());
                     Bukkit.getScheduler().runTaskLater(this, () -> {
                         if (player.isOnline() && mob.isValid()) {
                             mob.setLeashHolder(player);
                             pacify(mob);
                         }
-                    }, 10L);
+                    }, 12L);
                 }
             }
         }, 1L);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLeashBreak(EntityUnleashEvent event) {
         if (!(event.getEntity() instanceof LivingEntity mob)) return;
+        if (mob.hasMetadata(PROTECT_KEY) && event.getReason() == EntityUnleashEvent.UnleashReason.UNKNOWN) {
+            event.setDropLeash(false);
+            return;
+        }
+        if (event.getReason() != EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
+            unpacify(mob);
+            return;
+        }
         if (event.getReason() == EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
             if (!(mob.getLeashHolder() instanceof LeashHitch)) {
                 Bukkit.getScheduler().runTaskLater(this, () -> {
                     if (mob.isValid() && !mob.isLeashed()) unpacify(mob);
                 }, 100L);
-                
                 Player p = findNearbyPlayer(mob);
                 if (p != null) {
                     p.sendMessage(getMsg("unleash_success").replace("%entity%", mob.getName()));
