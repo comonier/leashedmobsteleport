@@ -6,8 +6,7 @@ Minecraft 1.21.11 | Java 21 | Paper 1.21.11
 
 __________________________________________________
 connect on ip: hu3.org server to test
-its a survival server with griefprevention.a
-and all my plugins.
+its a survival server with griefprevention and all my plugins.
 __________________________________________________
 
 ## 🚀 Key Features
