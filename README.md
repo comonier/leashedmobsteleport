@@ -4,7 +4,7 @@
 
 **Minecraft 1.21.1 | Java 21 | Paper 1.21.1**
 
-**LeashedMobsTeleport** is a high-performance, professional-grade utility for Minecraft servers. It revolutionizes how players transport entities, ensuring **zero-loss** interdimensional travel and a "pacified" experience for even the most dangerous mobs.
+**LeashedMobsTeleport** is a high-performance, professional-grade utility for Minecraft servers. It revolutionizes how players transport entities, ensuring **zero-loss** travel between worlds and a "pacified" experience for even the most dangerous mobs.
 
 __________________________________________________
 
@@ -13,34 +13,34 @@ __________________________________________________
 
 __________________________________________________
 
-<img width="450" alt="image" src="https://github.com/user-attachments/assets/eee6cedd-cc2a-416d-83ad-244124e5f5c3" />
+<img width="450" alt="image" src="https://github.com" />
 
 ## 🚀 Key Features
 
 ### 🌌 The "Golden Rescue" Teleportation
-Never lose a mob again. Our unique **Golden-Rescue** mechanic ensures entities stay bonded to the player during teleports and dimension changes.
-*   **Works with:** `/spawn`, `/home`, `/tp` and Portals.
-*   **Zero-Loss:** Mobs won't despawn or be left behind, even on high-latency servers.
-*   **Mount Persistence:** Stay mounted on your Horse, Camel, or even a Ghast after teleporting!
+Never lose a mob again. Our unique **Golden-Rescue** mechanic ensures entities stay bonded to the player during teleports and world changes.
+Works with: `/spawn`, `/home`, `/tp` and Portals.
+Zero-Loss: Mobs won't despawn or be left behind, even on high-latency servers.
+Mount Persistence: Stay mounted on your Horse, Camel, or even a Ghast after teleporting!
 
 ### 🌈 Dynamic Smart Colors
 Our new intelligent messaging system provides visual feedback:
-*   **Passive Mobs:** Displayed in <span style="color: #55ff55;">**Light Green**</span>.
-*   **Hostile Mobs:** Displayed in <span style="color: #ff5555;">**Light Red**</span>.
-*   **Mounts:** Displayed in **White**.
-*   **Worlds:** Themed colors for <span style="color: #a1ffad;">**Overworld**</span>, <span style="color: #ff5555;">**Nether**</span>, and <span style="color: #ff55ff;">**End**</span>.
+Passive Mobs: Displayed in **Light Green**.
+Hostile Mobs: Displayed in **Light Red**.
+Mounts: Displayed in **White**.
+Worlds: Themed colors for **Overworld**, **Nether**, and **End**.
 
 ### 🛡️ Universal Pacification & Safety
-*   **Universal Leash:** Supports **Iron Golems, Villagers, Allays, Breeze**, and more.
-*   **AI Lockdown:** Leashed mobs have their AI disabled. No more wandering Allays!
-*   **Sun Protection:** Zombies and Skeletons are immune to sun combustion while leashed. ☀️
-*   **Creeper Grace Period:** Leashed Creepers are pacified. Once released, they gain a **5-second grace period**.
-*   **Total Invulnerability:** Mobs on a lead are immune to Lava, Fall Damage, Fire, and Player attacks.
+Universal Leash: Supports **Iron Golems, Villagers, Allays, Breeze**, and more.
+AI Lockdown: Leashed mobs have their AI disabled. No more wandering Allays!
+Sun Protection: Zombies and Skeletons are immune to sun combustion while leashed. ☀️
+Creeper Grace Period: Leashed Creepers are pacified. Once released, they gain a **5-second grace period**.
+Total Invulnerability: Mobs on a lead are immune to Lava, Fall Damage, Fire, and Player attacks.
 
 ### 🎒 Quality of Life
-*   **Inventory Recovery:** Leads return directly to your **inventory** (no more drops on the ground).
-*   **Smart Commands:** Use `/lmt` to toggle teleport messages in real-time.
-*   **Bilingual Support:** Built-in support for **English (EN)** and **Portuguese (PT-BR)**.
+Inventory Recovery: Leads return directly to your **inventory** (no more drops on the ground).
+Smart Commands: Use `/lmt` to toggle teleport messages in real-time.
+Bilingual Support: Built-in support for **English (EN)** and **Portuguese (PT-BR)**.
 
 ---
 
@@ -58,7 +58,7 @@ Our new intelligent messaging system provides visual feedback:
 
 
 | Permission | Description | Default |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | `leashedmobsteleport.use` | Allows player to use all features. | `true` |
 
 ---
