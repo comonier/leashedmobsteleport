@@ -1,8 +1,6 @@
 # 🐾 LeashedMobsTeleport [v1.1]
 
-[![Minecraft Version](https://img.shields.io)](https://papermc.io)
-[![Java Version](https://img.shields.io)](https://www.oracle.com)
-[![Platform](https://img.shields.io)](https://spigotmc.org)
+Minecraft 1.21.11 | Java 21 | Paper 1.21.11
 
 **LeashedMobsTeleport** is a high-performance, professional-grade utility for Minecraft servers. It revolutionizes how players transport entities, ensuring **zero-loss** interdimensional travel and a "pacified" experience for even the most dangerous mobs.
 
