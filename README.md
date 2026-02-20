@@ -1,38 +1,54 @@
-# ⚓ LeashedMobsTeleport (1.21.1+)
-(tested on 1.21.11 paper)
+# 🐾 LeashedMobsTeleport [v1.1]
 
-A robust, interdimensional Minecraft plugin that allows you to leash any living entity and teleport them with the player anywhere, ensuring full stability and AI control.
+[![Minecraft Version](https://img.shields.io)](https://papermc.io)
+[![Java Version](https://img.shields.io)](https://www.oracle.com)
+[![Platform](https://img.shields.io)](https://spigotmc.org)
 
-## 🚀 Key Features (Plug & Play)
-
-*   **Interdimensional Teleportation:** Your mobs follow you between the Overworld, Nether, and End without getting lost.
-*   **AI Management:** 
-    *   Leashing a mob **disables its AI**, turning it into a "statue" that follows the player smoothly.
-    *   This prevents Endermen from escaping, Creepers from attacking, or mobs resisting movement.
-    *   AI is automatically reactivated once the leash is removed.
-*   **Creeper Reset:** If a Creeper is about to explode, leashing it **immediately puts out the fuse** and cancels the explosion.
-*   **Universal Leash:** Forced support for entities usually blocked by Vanilla:
-    *   **Villagers:** Blocks the trading menu if you are holding a leash.
-    *   **Allays:** Protection against item pickup (prevents leash duping).
-    *   **Golems:** Full support for Iron and Snow Golems.
-    *   **Mounts:** Zombie/Skeleton Horses and the new **Nautilus (1.21.11)** (prevents accidental mounting).
-    *   **Hostiles:** Breeze, Bogged, Zombies, Skeletons, etc.
-*   **Unbreakable Leads:** Leashes do not break by physical distance. Perfect for use with **Elytra** or Creative mode flight.
-
-## 🛡️ Permissions
-
-The plugin is **unlocked for all players by default** (Plug & Play).
-
-*   `leashedmobsteleport.use`: Allows leashing and teleporting mobs. 
-    *   *Default: true* (All players can use it upon installation).
-
-## 🚫 Restrictions
-*   **Bosses:** The **Wither** and the **Ender Dragon** remain immune to leashing for balance reasons.
-
-## 🛠️ Installation
-1. Move the `.jar` file to your server's `/plugins` folder.
-2. Start or restart your server.
-3. Enjoy!
+**LeashedMobsTeleport** is a high-performance, professional-grade utility for Minecraft servers. It revolutionizes how players transport entities, ensuring **zero-loss** interdimensional travel and a "pacified" experience for even the most dangerous mobs.
 
 ---
-Developed by **comonier** for version 1.21.11.
+
+## 🚀 Key Features
+
+### 🌌 The "Soul Ride" Teleportation
+Never lose a mob again. Our unique **Passenger-Ride** mechanic forces entities to "hitch a ride" with the player during teleports. 
+*   **Works with:** `/spawn`, `/home`, `/tp`, and Nether/End portals.
+*   **Zero-Loss:** Mobs won't despawn or be left behind, even on high-latency servers.
+*   **Mount Persistence:** Stay mounted on your Horse, Camel, or Donkey after teleporting!
+
+### 🛡️ Universal Pacification & Safety
+*   **Universal Leash:** Supports **Iron Golems, Snow Golems, Villagers, Allays, Breeze**, and more.
+*   **AI Lockdown:** Leashed mobs have their AI disabled. No more wandering Allays or teleporting Endermen!
+*   **Sun Protection:** Zombies and Skeletons are immune to sun combustion while on a lead. ☀️
+*   **Creeper Grace Period:** Leashed Creepers are pacified. Once released, they gain a **5-second grace period** before they can explode again.
+*   **Total Invulnerability:** Mobs on a lead are immune to Lava, Fall Damage, Fire, and Player attacks.
+
+### 🎒 Quality of Life
+*   **Inventory Recovery:** Leads return directly to your **inventory** when a mob is released (no more drops on the ground).
+*   **Smart Fence System:** Automatic notifications when tying/untying mobs to fences.
+*   **Bilingual Support:** Built-in support for **English (EN)** and **Portuguese (PT-BR)**.
+
+---
+
+## 🛠️ Installation
+
+1.  Ensure your server is running **Java 21**.
+2.  Download the latest [Release](https://github.com).
+3.  Drop the `.jar` file into your `/plugins` folder.
+4.  Restart your server.
+5.  Configure your language in `config.yml`.
+
+---
+
+## 📜 Permissions
+
+
+| Permission | Description | Default |
+| :--- | :--- | :--- |
+| `leashedmobsteleport.use` | Allows player to leash, teleport and use all features. | `true` |
+
+---
+
+## 💻 Configuration (`config.yml`)
+```yaml
+language: "en" # Options: "en" or "pt"
