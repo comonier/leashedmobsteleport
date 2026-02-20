@@ -8,6 +8,8 @@ __________________________________________________
 connect on ip: hu3.org server to test
 its a survival server with griefprevention and all my plugins.
 __________________________________________________
+<img width="400" height="392" alt="image" src="https://github.com/user-attachments/assets/b46af576-5a44-4b21-b508-d714fe47ea09" />
+
 
 ## 🚀 Key Features
 
