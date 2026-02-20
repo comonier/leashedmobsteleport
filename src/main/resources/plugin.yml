@@ -1,9 +1,15 @@
 name: leashedmobsteleport
-version: '1.2'
+version: '1.3'
 main: com.comonier.leashedmobsteleport.LeashedMobsTeleport
 api-version: '1.21'
 author: comonier
 description: Teleport leashed mobs across dimensions and allow leashing any mob.
+softdepend: [zzzzzz_last]
+
+commands:
+  lmt:
+    description: Alterna a exibição das mensagens de teleporte.
+    usage: /lmt
 
 permissions:
   leashedmobsteleport.use:
