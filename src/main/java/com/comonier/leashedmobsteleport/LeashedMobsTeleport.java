@@ -13,10 +13,12 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityUnleashEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,12 +52,19 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         getServer().getPluginManager().registerEvents(this, this);
         if (getCommand("lmt") != null) getCommand("lmt").setExecutor(this);
 
+        // TASK DE TELEPORTE CONTÍNUO - v1.5.5 (PROTEÇÃO DE CERCA E PASSAGEIRO)
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 for (Entity e : player.getNearbyEntities(25, 25, 25)) {
+                    
+                    // SE TIVER PASSAGEIRO (DOMANDO/MONTADO) OU PRESO NA CERCA (LEASH HITCH), NÃO TELEPORTA
+                    if (!e.getPassengers().isEmpty()) continue;
+                    if (e instanceof LivingEntity le && le.isLeashed() && le.getLeashHolder() instanceof LeashHitch) continue;
+
                     if (e instanceof LivingEntity mob) {
                         boolean isOurs = mob.hasMetadata(OWNER_KEY) && !mob.getMetadata(OWNER_KEY).isEmpty() && 
                                          mob.getMetadata(OWNER_KEY).get(0).asString().equals(player.getUniqueId().toString());
+                        
                         if ((mob.isLeashed() && player.equals(mob.getLeashHolder())) || isOurs) {
                             if (!mob.getWorld().equals(player.getWorld()) || mob.getLocation().distanceSquared(player.getLocation()) > 100.0) {
                                 mob.teleport(player.getLocation());
@@ -66,22 +75,22 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
                     }
                 }
             }
-        }, 2L, 2L);
+        }, 10L, 10L);
         
         Bukkit.getScheduler().runTaskLater(this, this::printBanner, 1L);
     }
 
     private void reloadPluginData() {
-        reloadConfig();
         saveDefaultConfig();
+        reloadConfig();
         createMessagesConfig();
     }
 
     private void printBanner() {
         Bukkit.getConsoleSender().sendMessage("§b ");
         Bukkit.getConsoleSender().sendMessage("§b##########################################");
-        Bukkit.getConsoleSender().sendMessage("§b#     LEASHED MOBS TELEPORT - ACTIVE     #");
-        Bukkit.getConsoleSender().sendMessage("§b#             VERSION: 1.6.3             #");
+        Bukkit.getConsoleSender().sendMessage("§b#     LEASHED MOBS TELEPORT - v1.5.5     #");
+        Bukkit.getConsoleSender().sendMessage("§b#    ESTÁVEL: WG / GP / ANTI-DUPE LEAD   #");
         Bukkit.getConsoleSender().sendMessage("§b##########################################");
         Bukkit.getConsoleSender().sendMessage("§b ");
     }
@@ -125,7 +134,8 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         if (p.isOp() || p.hasPermission("leashedmobsteleport.admin")) return false;
         if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
             RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
-            if (!query.testState(BukkitAdapter.adapt(l), WorldGuardPlugin.inst().wrapPlayer(p), Flags.INTERACT)) return true; 
+            if (!query.testState(BukkitAdapter.adapt(l), WorldGuardPlugin.inst().wrapPlayer(p), Flags.INTERACT) ||
+                !query.testState(BukkitAdapter.adapt(l), WorldGuardPlugin.inst().wrapPlayer(p), Flags.USE)) return true; 
         }
         if (Bukkit.getPluginManager().isPluginEnabled("GriefPrevention")) {
             Claim claim = GriefPrevention.instance.dataStore.getClaimAt(l, false, null);
@@ -149,21 +159,17 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
                 return;
             }
 
-            boolean usePerMob = getConfig().getBoolean("use-permission-per-mob", false);
-            String perMobPerm = "lmt.leash." + mob.getType().name().toLowerCase();
-
-            if (usePerMob) {
+            if (getConfig().getBoolean("use-permission-per-mob", false)) {
+                String perMobPerm = "lmt.leash." + mob.getType().name().toLowerCase();
                 if (!player.hasPermission(perMobPerm)) {
                     event.setCancelled(true);
                     player.sendMessage(getMsg("no_permission_mob").replace("%entity%", mob.getName()).replace("%permission%", perMobPerm));
                     return;
                 }
-            } else {
-                if (!player.hasPermission("leashedmobsteleport.use")) {
-                    event.setCancelled(true);
-                    player.sendMessage(getMsg("no_permission"));
-                    return;
-                }
+            } else if (!player.hasPermission("leashedmobsteleport.use")) {
+                event.setCancelled(true);
+                player.sendMessage(getMsg("no_permission"));
+                return;
             }
 
             if (mob.getType() == EntityType.WITHER || mob.getType() == EntityType.ENDER_DRAGON) {
@@ -172,13 +178,23 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
                 return;
             }
 
-            event.setCancelled(true);
-            if (mob.setLeashHolder(player)) {
-                pacify(mob);
-                mob.setMetadata(OWNER_KEY, new FixedMetadataValue(this, player.getUniqueId().toString()));
-                player.sendMessage(getMsg("leash_success").replace("%entity%", getEntityColorName(mob)));
-                if (player.getGameMode() != org.bukkit.GameMode.CREATIVE) item.setAmount(item.getAmount() - 1);
+            if (mob instanceof Monster || mob instanceof Slime || mob instanceof Ghast) {
+                event.setCancelled(true);
             }
+
+            Bukkit.getScheduler().runTaskLater(this, () -> {
+                if (mob.isValid() && player.isOnline()) {
+                    if (mob.setLeashHolder(player)) {
+                        pacify(mob);
+                        mob.setMetadata(OWNER_KEY, new FixedMetadataValue(this, player.getUniqueId().toString()));
+                        player.sendMessage(getMsg("leash_success").replace("%entity%", getEntityColorName(mob)));
+                        if (player.getGameMode() != org.bukkit.GameMode.CREATIVE) {
+                            ItemStack handItem = player.getInventory().getItemInMainHand();
+                            if (handItem != null && handItem.getType() == Material.LEAD) handItem.setAmount(handItem.getAmount() - 1);
+                        }
+                    }
+                }
+            }, 1L);
         }
     }
 
@@ -187,8 +203,10 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
         Player player = event.getPlayer();
         Location from = event.getFrom();
         Location to = event.getTo();
-        Entity vehicle = player.getVehicle(); // PEGA A MONTARIA
+        Entity vehicle = player.getVehicle();
         
+        if (from.getWorld().equals(to.getWorld()) && from.distanceSquared(to) < 25.0) return;
+
         List<LivingEntity> targets = new ArrayList<>();
         for (Entity e : player.getNearbyEntities(30, 30, 30)) {
             if (e instanceof LivingEntity m && m.isLeashed() && player.equals(m.getLeashHolder())) targets.add(m);
@@ -196,25 +214,25 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
 
         if (targets.isEmpty() && vehicle == null) return;
 
-        // ANTI-DUPE LEAD
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-            if (from.getWorld() != null) {
-                for (Entity e : from.getWorld().getNearbyEntities(from, 8, 8, 8)) {
-                    if (e instanceof Item i && i.getItemStack().getType() == Material.LEAD && i.getTicksLived() < 20) e.remove();
+        // ANTI-DUPE LEAD - LIMPEZA REFORÇADA (TICKS 2, 4 e 6)
+        for (int i = 1; i <= 3; i++) {
+            Bukkit.getScheduler().runTaskLater(this, () -> {
+                if (from.getWorld() != null) {
+                    for (Entity e : from.getWorld().getNearbyEntities(from, 10, 10, 10)) {
+                        if (e instanceof Item item && item.getItemStack().getType() == Material.LEAD) item.remove();
+                    }
                 }
-            }
-        }, 2L);
+            }, i * 2L);
+        }
 
-        // TELEPORTE E RE-MONTAGEM
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if (!player.isOnline() || to == null) return;
 
-            // RESTAURADO: Se estiver montado, leva o veículo junto
             if (vehicle != null && vehicle.isValid()) {
                 vehicle.teleport(to, PlayerTeleportEvent.TeleportCause.PLUGIN);
                 Bukkit.getScheduler().runTaskLater(this, () -> {
                     if (player.isOnline() && vehicle.isValid()) vehicle.addPassenger(player);
-                }, 4L);
+                }, 15L); 
             }
 
             for (LivingEntity m : targets) {
@@ -229,15 +247,43 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
                 }
             }
 
-            // MENSAGEM DE TELEPORTE COM SUFIXO DE MONTARIA
-            if (disabledMessages.contains(player.getUniqueId())) return;
-            String ridingStr = vehicle != null ? getMsg("riding_suffix").replace("%mount%", "§f" + vehicle.getName() + "§7") : "";
-            player.sendMessage(getMsg("teleport_msg")
-                .replace("%from%", formatWorldName(from.getWorld().getName()))
-                .replace("%to%", formatWorldName(to.getWorld().getName()))
-                .replace("%count%", String.valueOf(targets.size()))
-                .replace("%riding%", ridingStr));
-        }, 1L);
+            if (!disabledMessages.contains(player.getUniqueId())) {
+                String ridingStr = vehicle != null ? getMsg("riding_suffix").replace("%mount%", "§f" + vehicle.getName() + "§7") : "";
+                player.sendMessage(getMsg("teleport_msg")
+                    .replace("%from%", formatWorldName(from.getWorld().getName()))
+                    .replace("%to%", formatWorldName(to.getWorld().getName()))
+                    .replace("%count%", String.valueOf(targets.size()))
+                    .replace("%riding%", ridingStr));
+            }
+        }, 2L);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onFenceInteract(PlayerInteractEvent event) {
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock() != null) {
+            if (event.getClickedBlock().getType().name().contains("FENCE")) {
+                Player p = event.getPlayer();
+                Location fenceLoc = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
+                
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    for (Entity nearby : p.getNearbyEntities(10, 10, 10)) {
+                        if (nearby instanceof LivingEntity mob && mob.isLeashed() && p.equals(mob.getLeashHolder())) {
+                            
+                            // FORÇA O LAÇO NA CERCA PARA MONSTROS
+                            if (mob instanceof Monster || mob instanceof Slime || mob instanceof Ghast) {
+                                LeashHitch hitch = mob.getWorld().spawn(fenceLoc, LeashHitch.class);
+                                mob.setLeashHolder(hitch);
+                            }
+                            
+                            if (mob.getLeashHolder() instanceof LeashHitch) {
+                                pacify(mob);
+                                p.sendMessage(getMsg("fence_leash").replace("%entity%", getEntityColorName(mob)));
+                            }
+                        }
+                    }
+                }, 3L);
+            }
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -248,6 +294,7 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLeashBreak(EntityUnleashEvent event) {
         if (!(event.getEntity() instanceof LivingEntity mob)) return;
+        
         if (mob.hasMetadata(PROTECT_KEY) && event.getReason() != EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
             event.setDropLeash(false);
             Bukkit.getScheduler().runTaskLater(this, () -> {
@@ -255,29 +302,15 @@ public class LeashedMobsTeleport extends JavaPlugin implements Listener, Command
             }, 1L);
             return;
         }
+
         if (event.getReason() == EntityUnleashEvent.UnleashReason.PLAYER_UNLEASH) {
-            event.setDropLeash(false); unpacify(mob);
+            event.setDropLeash(false); 
+            unpacify(mob);
             Player p = findNearbyPlayer(mob);
             if (p != null) {
                 p.sendMessage(getMsg("unleash_success").replace("%entity%", getEntityColorName(mob)));
                 if (p.getGameMode() != org.bukkit.GameMode.CREATIVE) p.getInventory().addItem(new ItemStack(Material.LEAD));
             }
-        }
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onFenceInteract(PlayerInteractEntityEvent event) {
-        if (event.getRightClicked() instanceof LeashHitch hitch) {
-            Player p = event.getPlayer();
-            Bukkit.getScheduler().runTaskLater(this, () -> {
-                for (Entity nearby : hitch.getNearbyEntities(7, 7, 7)) {
-                    if (nearby instanceof LivingEntity mob && mob.isLeashed()) {
-                        String key = mob.getLeashHolder().equals(hitch) ? "fence_leash" : "fence_unleash";
-                        pacify(mob);
-                        p.sendMessage(getMsg(key).replace("%entity%", getEntityColorName(mob)));
-                    }
-                }
-            }, 3L);
         }
     }
 

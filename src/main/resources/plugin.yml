@@ -1,5 +1,5 @@
 name: leashedmobsteleport
-version: '1.5'
+version: '1.5.1'
 main: com.comonier.leashedmobsteleport.LeashedMobsTeleport
 api-version: '1.21'
 author: comonier
