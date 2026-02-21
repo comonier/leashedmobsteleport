@@ -20,8 +20,8 @@ This release (v1.5) introduces breaking changes in the configuration structure. 
 
   ### 🛑 1. RESET CONFIGURATION
 Due to the new **Mob Permission System**, the language files and messages have been overhauled.
-*   **ACTION REQUIRED:** You **MUST** delete the old plugin folder before installing v1.5. 
-*   **WHY?** Failure to do so will cause new permission messages to be read incorrectly or not at all.
+   **ACTION REQUIRED:** You **MUST** delete the old plugin folder before installing v1.5. 
+   **WHY?** Failure to do so will cause new permission messages to be read incorrectly or not at all.
 
 ### 🛡️ 2. WORLDGUARD OVERRIDE SETUP
 For the **Leash Protection** (allow/deny logic) to function correctly across Server and Player claims, you must bypass global interaction blocks. Our plugin will handle the specific security logic, but it needs WorldGuard to "let it pass" first.
