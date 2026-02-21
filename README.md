@@ -1,4 +1,19 @@
 <div align="center">
+
+# 🚀 Release v1.5.5 - The Stability Update (1.21.1)
+
+This is a **CRITICAL** update that fixes several physics and synchronization bugs introduced by the Minecraft 1.21.1 engine. All server owners are highly encouraged to update immediately.
+
+### 🛠️ Key Fixes & Improvements
+
+- **🐎 Anti-Rocket Mounts:** Fixed a major physics bug where entities would fly into the stratosphere when tamed or mounted while the teleport system was active.
+- **🛡️ Fence Persistence:** Fixed a "Ghost Leash" issue where leashed entities (like horses) would teleport back to the player's hand even after being tied to a fence.
+- **👹 Aggressive Mob Leashing:** Fully restored the ability to leash monsters (Creepers, Zombies, etc.) which was being blocked by the native 1.21.1 engine.
+- **🧹 Triple-Tick Anti-Dupe:** Implemented a high-precision lead cleaning system (ticks 2, 4, and 6) to prevent lead items from dropping/duplicating during cross-dimension teleports.
+- **🔇 Teleport Anti-Spam:** Messages no longer spam the chat during short-distance teleports (e.g., while mounting or adjusting positions).
+- **🔒 WG/GP Full Sync:** Improved interaction logic with WorldGuard and GriefPrevention to ensure custom leashing rules are respected in protected areas.
+
+  
 # 🛡️ Proteção de Mobs & Integração WG/GP (v1.5)
   
 # ⚠️EXTREMELY IMPORTANT⚠️
