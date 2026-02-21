@@ -8,10 +8,13 @@ softdepend: [zzzzzz_last]
 
 commands:
   lmt:
-    description: Alterna a exibição das mensagens de teleporte.
-    usage: /lmt
+    description: Comandos principais do plugin (Reload e Toggle).
+    usage: /lmt [reload]
 
 permissions:
   leashedmobsteleport.use:
     description: Allows players to leash mobs and teleport them.
     default: true
+  leashedmobsteleport.admin:
+    description: Allows reloading the plugin configuration.
+    default: op
