@@ -1,4 +1,34 @@
 <div align="center">
+# 🛡️ Proteção de Mobs & Integração WG/GP (v1.5)
+# ⚠️ EXTREMELY IMPORTANT - READ BEFORE UPDATING ⚠️
+This release (v1.5) introduces breaking changes in the configuration structure. Follow these steps to ensure the protection system works as intended.
+
+  ### 🛑 1. RESET CONFIGURATION
+Due to the new **Mob Permission System**, the language files and messages have been overhauled.
+*   **ACTION REQUIRED:** You **MUST** delete the old plugin folder before installing v1.5. 
+*   **WHY?** Failure to do so will cause new permission messages to be read incorrectly or not at all.
+
+### 🛡️ 2. WORLDGUARD OVERRIDE SETUP
+For the **Leash Protection** (allow/deny logic) to function correctly across Server and Player claims, you must bypass global interaction blocks. Our plugin will handle the specific security logic, but it needs WorldGuard to "let it pass" first.
+
+**Run these commands in your console immediately:**
+
+#### 🌍 Overworld
+> `/rg flag __global__ use allow`
+> `/rg flag __global__ interact allow`
+
+#### 🔥 The Nether
+> `/rg flag __global__ -w world_nether use allow`
+> `/rg flag __global__ -w world_nether interact allow`
+
+#### 🌌 The End
+> `/rg flag __global__ -w world_the_end use allow`
+> `/rg flag __global__ -w world_the_end interact allow`
+
+### ⚠️ WHY IS THIS NECESSARY?
+If these flags are not set to `allow` in the `__global__` region, **WorldGuard** and **GriefPrevention** will hard-block the action before our plugin's logic can even process it. Setting these to `allow` delegates the final decision to our plugin's advanced filtering system.
+
+---
 
 # 🐾 LeashedMobsTeleport [v1.4]
 DUPE LEAD ON CROSS WORLD TP FIXED
