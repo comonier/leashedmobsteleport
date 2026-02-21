@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Release v1.5.5 - The Stability Update (1.21.1)
+# 🚀 Release v1.5.1 - The Stability Update (1.21.1)
 
 This is a **CRITICAL** update that fixes several physics and synchronization bugs introduced by the Minecraft 1.21.1 engine. All server owners are highly encouraged to update immediately.
 
