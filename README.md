@@ -1,5 +1,6 @@
 <div align="center">
 # 🛡️ Proteção de Mobs & Integração WG/GP (v1.5)
+  
 # ⚠️ EXTREMELY IMPORTANT - READ BEFORE UPDATING ⚠️
 This release (v1.5) introduces breaking changes in the configuration structure. Follow these steps to ensure the protection system works as intended.
 
