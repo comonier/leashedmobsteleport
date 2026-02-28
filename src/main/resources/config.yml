@@ -1,14 +1,14 @@
-# LeashedMobsTeleport v1.5
-language: "en"
+# LeashedMobsTeleport v1.5.6
+language: "en" # Default language (Options: "en", "pt")
 
 # PERMISSION SYSTEM BY ENTITY
-# If 'false', all mobs are leashed normally (standard behavior).
-# If 'true', players need: lmt.leash.
+# If 'false', all mobs can be leashed normally (standard behavior).
+# If 'true', players need: lmt.leash.<mob_name>
 # Example: lmt.leash.cow, lmt.leash.skeleton, lmt.leash.villager
 use-permission-per-mob: false
 
 # --- ENTITY REFERENCE LIST ---
 # Use these names for permissions (lowercase):
-# Passive: cow, sheep, pig, chicken, villager, iron_golem, wolf, cat, horse, donkey, llama, parrot, bee, allay, sniffer, frog, etc.
-# Hostile: skeleton, zombie, creeper, spider, enderman, witch, pillager, ravager, hoglin, piglin, ghast, blaze, breeze, etc.
-# Aquatic: turtle, dolphin, axolotl, squid, glow_squid, cod, salmon, pufferfish.
+# Passive: cow, sheep, pig, chicken, villager, iron_golem, wolf, cat, horse, donkey, llama, parrot, bee, allay, sniffer, frog, axolotl, sniffer.
+# Hostile: skeleton, zombie, creeper, spider, enderman, witch, pillager, ravager, hoglin, piglin, ghast, blaze, breeze, bogged.
+# Aquatic: turtle, dolphin, squid, glow_squid, cod, salmon, pufferfish.

@@ -1,20 +1,23 @@
 name: leashedmobsteleport
-version: '1.5.2'
+version: '1.6' # Updated to reflect persistence improvements (DNA/PDC)
 main: com.comonier.leashedmobsteleport.LeashedMobsTeleport
 api-version: '1.21'
 author: comonier
-description: Teleport leashed mobs across dimensions and allow leashing any mob.
-softdepend: [zzzzzz_last]
+description: Teleport leashed mobs between dimensions and support leashing any mob with persistent DNA.
+
+# Ensures the plugin loads AFTER protection plugins for Hooks to work correctly
+softdepend: [WorldGuard, GriefPrevention, zzzzzz_last]
 
 commands:
   lmt:
-    description: Comandos principais do plugin (Reload e Toggle).
-    usage: /lmt [reload]
+    description: Main plugin commands (Reload and Toggle).
+    usage: /lmt [reload|toggle/wand]
+    permission: leashedmobsteleport.use
 
 permissions:
   leashedmobsteleport.use:
-    description: Allows players to leash mobs and teleport them.
+    description: Allows the player to leash mobs and teleport them.
     default: true
   leashedmobsteleport.admin:
-    description: Allows reloading the plugin configuration.
+    description: Allows reloading settings and bypassing all area protections (WG/GP).
     default: op

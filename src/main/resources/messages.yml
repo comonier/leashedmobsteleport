@@ -19,6 +19,8 @@ en:
   info_links: "&7Links: &b[GitHub] &f- &b[Support]"
   enabled: "&aEnabled"
   disabled: "&cDisabled"  
+  wand_receive: "&b&l--- [ LMT Wand ] --- \n&aYou received the &bEnchanted Lead&a! \n&7Tip: Click directly on the mob to rescue it from the fence."
+  wand_no_permission: "&cYou don't have permission to get the Enchanted Lead!"
 
 pt:
   leash_success: "&r&7Você laçou %entity%."
@@ -41,3 +43,5 @@ pt:
   info_links: "&7Links: &b[GitHub] &f- &b[Suporte]"
   enabled: "&aAtivado"
   disabled: "&cDesativado"
+  wand_receive: "&b&l--- [ LMT Wand ] --- \n&aVocê recebeu a &bEnchanted Lead&a! \n&7Dica: Clique diretamente no mob para resgatá-lo da cerca."
+  wand_no_permission: "&cVocê não tem permissão para pegar a Enchanted Lead!"
