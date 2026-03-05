@@ -1,6 +1,14 @@
 # LeashedMobsTeleport
 
-**Version:** 1.6  
+**Version:** 1.7
+### 🚀 Improvements & Bug Fixes
+*   **GriefPrevention & WorldGuard Integration:** Fixed a critical bypass where players could leash or unleash mobs in protected areas without trust.
+*   **Anti-Dupe System:** Implemented a persistent DNA tracker (`wandLeashKey`) to prevent players from generating free leads when using the Enchanted Wand.
+*   **Protection Notifications:** Added real-time chat alerts when players enter/exit claims or have their trust status changed.
+*   **Persistence Fix:** Resolved an issue where mobs would lose their "Pacified" state (IA Off) and drop leads after a server restart.
+*   **Fence Security:** Players are now blocked from tying mobs to fences in territories where they do not have access permission.
+*   **Code Optimization:** Complete refactor for Java 21/Paper 1.21.1 with logic improvements to prevent interaction glitches.
+
 **Description:** Teleport leashed entities across dimensions and allow leashing any type of mob with advanced persistent protection.
 
 ## Main Features
