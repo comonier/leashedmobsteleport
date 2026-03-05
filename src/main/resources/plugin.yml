@@ -1,5 +1,5 @@
 name: leashedmobsteleport
-version: '1.6' # Updated to reflect persistence improvements (DNA/PDC)
+version: '1.7' # Updated to reflect persistence improvements (DNA/PDC)
 main: com.comonier.leashedmobsteleport.LeashedMobsTeleport
 api-version: '1.21'
 author: comonier
@@ -11,7 +11,7 @@ softdepend: [WorldGuard, GriefPrevention, zzzzzz_last]
 commands:
   lmt:
     description: Main plugin commands (Reload and Toggle).
-    usage: /lmt [reload|toggle/wand]
+    usage: /lmt [reload|toggle|wand]
     permission: leashedmobsteleport.use
 
 permissions:
