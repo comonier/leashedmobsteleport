@@ -5,44 +5,67 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.comonier</groupId>
     <artifactId>leashedmobsteleport</artifactId>
-    <version>1.8.1</version>
+    <version>1.8.2</version>
     <packaging>jar</packaging>
     <name>LeashedMobsTeleport</name>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
+            <maven.compiler.release>17</maven.compiler.release>
+<!--
+            <maven.compiler.release>21</maven.compiler.release>
+-->
     </properties>
+
     <repositories>
+
         <repository>
             <id>papermc</id>
             <url>https://repo.papermc.io</url>
         </repository>
+
         <repository>
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
+
         <repository>
             <id>sonatype-oss-snapshots</id>
             <url>https://central.sonatype.com/repository/maven-snapshots/</url>
         </repository>
+
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
     </repositories>
+
     <dependencies>
+<!-- 
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.21.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+-->
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+<!-- continuando -->
+
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.0.5</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.github.TechFortress</groupId>
             <artifactId>GriefPrevention</artifactId>
@@ -57,12 +80,12 @@
         <scope>provided</scope>
     </dependency>
 
-    <!-- ADICIONE ESTA DEPENDÊNCIA PARA CORRIGIR O ERRO -->
     <dependency>
         <groupId>io.github.fabiozumbi12.RedProtect</groupId>
         <artifactId>RedProtect-Core</artifactId>
         <version>8.1.2</version>
         <scope>provided</scope>
+
     </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -71,6 +94,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
     <build>
         <resources>
             <resource>
@@ -84,7 +108,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
+                <!--
                     <release>21</release>
+                -->
+                    <release>17</release>
                 </configuration>
             </plugin>
         </plugins>

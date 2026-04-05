@@ -32,11 +32,10 @@ public class ItemManager {
             lore.add("§e§oEste item não pode ser descartado.");
             meta.setLore(lore);
             
-            // Adiciona brilho de encantamento e esconde a descrição do encantamento
-            meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+            // DURABILITY é o nome universal para Unbreaking em versões antigas e novas da API
+            meta.addEnchant(Enchantment.DURABILITY, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             
-            // Marca o item permanentemente no DNA do item (PDC)
             meta.getPersistentDataContainer().set(wandKey, PersistentDataType.BYTE, (byte) 1);
             wand.setItemMeta(meta);
         }
@@ -44,10 +43,7 @@ public class ItemManager {
     }
 
     public boolean isWand(ItemStack item) {
-        if (null == item) return false;
-        if (Material.LEAD != item.getType()) return false;
-        if (false == item.hasItemMeta()) return false;
-        
+        if (null == item || Material.LEAD != item.getType() || !item.hasItemMeta()) return false;
         return item.getItemMeta().getPersistentDataContainer().has(wandKey, PersistentDataType.BYTE);
     }
 }
