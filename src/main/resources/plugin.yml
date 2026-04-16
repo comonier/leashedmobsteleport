@@ -9,8 +9,8 @@ softdepend: [WorldGuard, GriefPrevention, RedProtect, zzzzzz_last]
 
 commands:
   lmt:
-    description: Main plugin commands (Reload, Toggle, Wand).
-    usage: /lmt [reload|toggle|wand]
+    description: Main plugin commands (Reload, Chat, Screen, Action, Boss, Wand).
+    usage: /lmt [reload|chat|screen|action|boss|wand]
     permission: leashedmobsteleport.use
 
 permissions:

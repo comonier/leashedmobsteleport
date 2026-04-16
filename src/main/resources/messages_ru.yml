@@ -1,0 +1,54 @@
+ru:
+  leash_success: "&b&lLMT &8» &r&7Вы привязали %entity%."
+  fence_leash: "&b&lLMT &8» &r&7Вы привязали %entity% к забору."
+  fence_unleash: "&b&lLMT &8» &r&7Вы отвязали %entity% от забора."
+  unleash_success: "&b&lLMT &8» &r&7Вы освободили %entity%."
+  teleport_msg: "&b&lLMT &8» &r&7Вы телепортировались из %from% &7в %to% &7с &f%count% &7существами%riding%."
+  riding_suffix: " верхом на %mount%"
+  
+  chat_on: "&b&lLMT &8» &r&7Уведомления в чате &aвключены."
+  chat_off: "&b&lLMT &8» &r&7Уведомления в чате &cвыключены."
+  screen_on: "&b&lLMT &8» &r&7Уведомления на экране &aвключены."
+  screen_off: "&b&lLMT &8» &r&7Уведомления на экране &cвыключены."
+  action_on: "&b&lLMT &8» &r&7Уведомления в Action Bar &aвключены."
+  action_off: "&b&lLMT &8» &r&7Уведомления в Action Bar &cвыключены."
+  boss_on: "&b&lLMT &8» &r&7Уведомления в Boss Bar &aвключены."
+  boss_off: "&b&lLMT &8» &r&7Уведомления в Boss Bar &cвыключены."
+  
+  notify_disabled_by_admin: "&b&lLMT &8» &cЭтот тип уведомлений был отключен администратором."
+  no_permission: "&b&lLMT &8» &cУ вас нет разрешения на использование поводка!"
+  no_permission_mob: "&b&lLMT &8» &cВы не можете привязать %entity%! Вам нужно: &f%permission%"
+  no_permission_admin: "&b&lLMT &8» &cВам нужно разрешение leashedmobsteleport.admin для этого!"
+  no_bosses: "&b&lLMT &8» &r&cВы не можете привязывать боссов!"
+  reload_success: "&b&lLMT &8» &aКонфигурация и сообщения успешно перезагружены!"
+  
+  info_header: "&b&l--- [ Инфо LeashedMobsTeleport ] ---"
+  info_version: "&7Версия: &f%version%"
+  info_perm_status: "&7Система разрешений: %status%"
+  info_commands: "&7Команды: &f/lmt chat|screen|action|boss, /lmt reload"
+  info_links: "&7Ссылки: &b[GitHub] &f- &b[Поддержка]"
+  enabled: "&aВключено"
+  disabled: "&cВыключено"
+  
+  wand_receive: "&b&l--- [ LMT Wand ] --- \n&aВы получили &bEnchanted Lead&a! \n&7Совет: Нажмите прямо на моба, чтобы спасти его с забора."
+  wand_no_permission: "&b&lLMT &8» &cУ вас нет разрешения на получение Enchanted Lead!"
+  protection_no_access: "&b&lLMT &8» &cВы не можете взаимодействовать или освобождать существ здесь!"
+  protection_no_fence: "&b&lLMT &8» &cВы не можете использовать заборы здесь!"
+  
+  # Territory (Chat com prefixo)
+  notify_enter_claim: "&b&lLMT &8» &fВы вошли на территорию: &a%owner%"
+  notify_exit_claim: "&fВы покинули защищенную зону."
+  notify_trust_gain: "&b&lLMT &8» &aВам предоставлен доступ к этой территории!"
+  notify_trust_loss: "&b&lLMT &8» &cДоступ к этой территории отозван!"
+  notify_has_trust: "&b&lLMT &8» &aУ вас есть разрешение на доступ здесь."
+  notify_no_trust: "&b&lLMT &8» &cУ вас нет разрешения здесь."
+
+  # Action & Boss (Sem prefixo)
+  notify_action_trusted: "&a%owner% &f(Доверенный)"
+  notify_action_untrusted: "&c%owner% &f(Нет доступа)"
+  notify_boss_trusted: "&a%owner% &7- Доступ разрешен"
+  notify_boss_untrusted: "&c%owner% &7- Доступ запрещен"
+  
+  wand_remove: "&b&lLMT &8» &cEnchanted Lead удален."
+  wand_tip: "&7&oСовет: Нажмите на моба на заборе, чтобы забрать его."
+  only_players: "&b&lLMT &8» &cТолько игроки могут использовать эту команду."

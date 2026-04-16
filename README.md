@@ -1,40 +1,50 @@
-# LeashedMobsTeleport
+# LeashedMobsTeleport (LMT)
 
-**Version:** 1.8.1
-**Description:** Advanced dimensional teleportation for leashed entities, featuring multi-plugin protection hooks, persistent DNA tracking (PDC), and the exclusive Enchanted Lead system.
+LeashedMobsTeleport is an essential tool for Minecraft servers that want to enhance leash (lead) mechanics. It allows teleporting leashed entities across dimensions and worlds, while offering a robust protection system, persistent DNA, and deep integration with land claim plugins.
 
-## 🚀 Main Features
+## 🚀 Key Features
 
-*   **Enchanted Wand (LMT Wand):** A soul-bound "Enchanted Lead" that allows instant leashing and rescuing mobs from fences. Features high-security anti-drop and anti-theft (cannot be stored in chests or dropped on death).
-*   **Universal Leashing:** Leash any entity, including Monsters (Creeper, Zombie, etc.), Villagers, Slimes, and even Ghasts. (Bosses are excluded for stability).
-*   **Dimensional & Long-Distance Teleport:** Mobs follow the player through portals (Nether/End) and long-distance teleports. Includes an anti-stuck "Mob Ticker" that forces teleport if the mob is too far or trapped.
-*   **Smart Mount Support:** Vehicles (Horses, Pigs, Strider, etc.) teleport with the player and automatically re-mount the passenger at the destination.
-*   **Persistent Pacify System (DNA):** Leashed mobs become invulnerable, stop burning in the sun, and have their AI/Aggro disabled. Using **PersistentDataContainer (PDC)**, this protection survives server restarts and chunk unloads.
-*   **Advanced Fence Interaction:** Tie any mob to fences. Ownership is tracked via DNA, allowing only the owner (or admins) to retrieve them.
-*   **Triple Protection Hook:** Fully respects area protections from **WorldGuard** (Interact flag), **GriefPrevention** (Access/Trust), and **RedProtect** (Build permission).
+*   **Interdimensional Teleport:** Carry your mobs through Nether/End portals or teleport commands without the lead breaking.
+*   **Persistent DNA:** The plugin records the mob's owner in the PDC (Persistent Data Container), ensuring only the person who leashed it can interact with or release the mob.
+*   **Automatic Pacify Mode:** When leashed, mobs become invulnerable, stop burning in sunlight, and lose aggressive AI to ensure a safe journey.
+*   **Hostile Mob Support:** Allows leashing Monsters, Villagers, and Slimes (configurable).
+*   **Enchanted Lead (Wand):** A special soul-bound item that cannot be dropped or stored in chests, allowing you to rescue mobs from fences.
+*   **Protection Hooks:** Native support for WorldGuard, GriefPrevention, and RedProtect.
 
-## 🛠 Commands
+## 🛠 Commands & Usage
 
-*   `/lmt` - Displays plugin info and permission status.
-*   `/lmt wand` - Toggles the Enchanted Lead in your inventory.
-*   `/lmt reload` - Reloads configurations and all translation files (EN, PT, ES, RU).
-*   `/lmt toggle` - Enables or disables teleport status messages for the player.
+### Player Commands
+*   /lmt chat - Toggles territory entry/exit notifications in Chat.
+*   /lmt screen - Toggles notifications (Title/Subtitle) on the screen.
+*   /lmt action - Toggles notifications on the Action Bar.
+*   /lmt boss - Toggles notifications on the Boss Bar.
+*   /lmt wand - Receives or removes the Enchanted Lead (Wand) from your inventory.
 
-## 🔑 Permissions
+### Administrator Commands
+*   /lmt reload - Reloads configuration and translation files.
 
-*   `leashedmobsteleport.use` - Allows leashing mobs and using the /lmt wand and toggle commands.
-*   `leashedmobsteleport.admin` - Bypass all area protections, use /lmt reload, and view debug info.
-*   `lmt.leash.<mob_name>` - Specific permission per mob (e.g., `lmt.leash.creeper`), if `use-permission-per-mob` is enabled in `config.yml`.
+## 📋 Permissions
 
-## 🌍 Supported Languages
-The plugin automatically detects and loads:
-*   English (`en`)
-*   Portuguese (`pt`)
-*   Spanish (`es`)
-*   Russian (`ru`)
+*   leashedmobsteleport.use: Allows using leads and basic player commands (Default: Everyone).
+*   leashedmobsteleport.admin: Allows reloading the plugin and bypassing area protections.
 
-## ⚙️ Technical Compatibility
+### Entity-Specific Control (Optional)
+If use-permission-per-mob is set to true in config.yml, players will need specific permissions for each mob:
+*   Example: lmt.leash.cow, lmt.leash.skeleton, lmt.leash.villager.
 
-**Automatic Hook System:** The plugin is designed to be plug-and-play. It automatically detects if **WorldGuard**, **GriefPrevention**, or **RedProtect** are installed. 
-*   If a protection plugin is missing, LMT will simply skip its check without any console errors or performance impact.
-*   For administrative regions (like Spawn), ensure the `interact` flag (WorldGuard) or "Access/Build" trust is granted.
+## ⚙️ Notification System
+
+The administrator has full control over which notification systems are active on the server via config.yml:
+
+notifications:
+  chat: true
+  screen: true
+  actionbar: false
+  bossbar: false
+
+*   Admin Control: If the administrator sets an option to false, it is disabled server-wide.
+*   Player Choice: If an option is true in the config, players can individually decide to enable or disable it using /lmt <type>. If they try to toggle a disabled system, they will be notified it's blocked by the admin.
+
+## 🌐 Supported Languages
+The plugin automatically loads messages based on the language setting:
+*   English (en), Portuguese (pt), Spanish (es), Russian (ru).

@@ -7,6 +7,15 @@ language: "en"
 # Example: lmt.leash.cow, lmt.leash.skeleton, lmt.leash.villager
 use-permission-per-mob: false
 
+# --- NOTIFICATION SYSTEM ---
+# Global toggles for area notifications. 
+# If set to false, players cannot enable these even with commands.
+notifications:
+  chat: true
+  screen: true
+  actionbar: false
+  bossbar: false
+
 # --- ENTITY REFERENCE LIST ---
 # Use these names for permissions (lowercase):
 # Passive: cow, sheep, pig, chicken, villager, iron_golem, wolf, cat, horse, donkey, llama, parrot, bee, allay, sniffer, frog, axolotl, sniffer.
